@@ -10,12 +10,12 @@ const country = Astro.params.country!;
 const c = getCountry(country);
 
 const PIECES = [
-  { src: '/images/punto-de-venta/38c08d7b58b2.webp', desktop: { left: '13.667%', top: '58.074%', width: '2.625%' }, mobile: { left: '13.667%', top: '64.974%', width: '2.625%' }, delay: '0.35s' },
-  { src: '/images/punto-de-venta/e6bddd1eb37e.webp', desktop: { left: '17.958%', top: '31.63%', width: '8.25%' }, mobile: { left: '17.958%', top: '46.477%', width: '8.25%' }, delay: '0.63s' },
-  { src: '/images/punto-de-venta/8624cb394df6.webp', desktop: { left: '28.208%', top: '40.074%', width: '8.542%' }, mobile: { left: '28.208%', top: '52.383%', width: '8.542%' }, delay: '0.91s' },
-  { src: '/images/punto-de-venta/bd4fff269ba6.webp', desktop: { left: '34.5%', top: '74.296%', width: '31.083%' }, mobile: { left: '34.5%', top: '76.321%', width: '31.083%' }, delay: '1.19s' },
-  { src: '/images/punto-de-venta/b659d2c7fb02.webp', desktop: { left: '38.625%', top: '13.333%', width: '33.625%' }, mobile: { left: '38.625%', top: '33.679%', width: '33.625%' }, delay: '1.47s' },
-  { src: '/images/punto-de-venta/dc10e3ff99ab.webp', desktop: { left: '73.125%', top: '37.556%', width: '14.583%' }, mobile: { left: '73.125%', top: '50.622%', width: '14.583%' }, delay: '1.75s' },
+  { src: '/images/sistema-pos/38c08d7b58b2.webp', desktop: { left: '13.667%', top: '58.074%', width: '2.625%' }, mobile: { left: '13.667%', top: '64.974%', width: '2.625%' }, delay: '0.35s' },
+  { src: '/images/sistema-pos/e6bddd1eb37e.webp', desktop: { left: '17.958%', top: '31.63%', width: '8.25%' }, mobile: { left: '17.958%', top: '46.477%', width: '8.25%' }, delay: '0.63s' },
+  { src: '/images/sistema-pos/8624cb394df6.webp', desktop: { left: '28.208%', top: '40.074%', width: '8.542%' }, mobile: { left: '28.208%', top: '52.383%', width: '8.542%' }, delay: '0.91s' },
+  { src: '/images/sistema-pos/bd4fff269ba6.webp', desktop: { left: '34.5%', top: '74.296%', width: '31.083%' }, mobile: { left: '34.5%', top: '76.321%', width: '31.083%' }, delay: '1.19s' },
+  { src: '/images/sistema-pos/b659d2c7fb02.webp', desktop: { left: '38.625%', top: '13.333%', width: '33.625%' }, mobile: { left: '38.625%', top: '33.679%', width: '33.625%' }, delay: '1.47s' },
+  { src: '/images/sistema-pos/dc10e3ff99ab.webp', desktop: { left: '73.125%', top: '37.556%', width: '14.583%' }, mobile: { left: '73.125%', top: '50.622%', width: '14.583%' }, delay: '1.75s' },
 ];
 
 // Sin marcas ni modelos: el equipo puede variar según disponibilidad y lo que
@@ -248,7 +248,7 @@ if (c.sistemaPosPrice) {
     </style>
 
     <div class="relative w-full hidden lg:block">
-      <img src="/images/punto-de-venta/ab32f5093859.webp" alt="Sistema de punto de venta Qpaypro" class="block w-full h-auto" />
+      <img src="/images/sistema-pos/ab32f5093859.webp" alt="Sistema de punto de venta Qpaypro" class="block w-full h-auto" />
       {PIECES.map((piece) => (
         <img src={piece.src} alt="" class="sys-piece" style={`left: ${piece.desktop.left}; top: ${piece.desktop.top}; width: ${piece.desktop.width}; animation-delay: ${piece.delay};`} />
       ))}
@@ -269,7 +269,7 @@ if (c.sistemaPosPrice) {
          y el receptor USB de los extremos. -->
     <div class="relative w-full lg:hidden min-h-[100svh] bg-[#a5968f]">
       <img
-        src="/images/punto-de-venta/605062be289f.webp"
+        src="/images/sistema-pos/605062be289f.webp"
         alt="Sistema de punto de venta Qpaypro"
         class="block w-full h-auto"
       />
@@ -427,7 +427,7 @@ if (c.sistemaPosPrice) {
         <div class="relative">
           <div class="absolute -inset-8 rounded-[40px] blur-3xl pointer-events-none" style="background: radial-gradient(circle, rgba(0, 151, 206, 0.28) 0%, transparent 70%);"></div>
           <img
-            src="/images/punto-de-venta/b659d2c7fb02.webp"
+            src="/images/sistema-pos/b659d2c7fb02.webp"
             alt="Pantalla del punto de venta de Qpaypro con el catálogo de productos y el ticket de la venta en curso"
             width="807"
             height="757"
