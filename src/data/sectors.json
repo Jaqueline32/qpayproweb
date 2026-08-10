@@ -109,7 +109,7 @@
     },
     "pos": {
       "eyebrow": "Punto de venta",
-      "heading": "Suma el Sistema POS a tu mostrador",
+      "heading": "Suma el Punto de Venta a tu mostrador",
       "desc": "Cobra en el mostrador, controla tu inventario y cierra caja sin cuadernos ni cuentas a mano. Un solo equipo para tu punto de venta físico.",
       "items": [
         {
@@ -128,8 +128,8 @@
           "desc": "Reportes de lo que vendes, por día y por producto."
         }
       ],
-      "ctaText": "Ver Sistema POS",
-      "ctaHref": "/sistema-pos",
+      "ctaText": "Ver Punto de Venta",
+      "ctaHref": "/punto-de-venta",
       "image": "/images/sectors/34d825ba261b.webp"
     },
     "testimonial": {
@@ -147,11 +147,11 @@
         },
         {
           "q": "¿Puedo cobrar con tarjeta y también por WhatsApp?",
-          "a": "Sí. Cobras con tarjeta (pago sin contacto y QR) en el mostrador con el Sistema POS, y también envías links de pago por WhatsApp y redes."
+          "a": "Sí. Cobras con tarjeta (pago sin contacto y QR) en el mostrador con el Punto de Venta, y también envías links de pago por WhatsApp y redes."
         },
         {
           "q": "¿Qué necesito para empezar a cobrar en mi tienda?",
-          "a": "Solo tu cuenta Qpaypro. Puedes cobrar desde el celular, con el Sistema POS o con links de pago, según lo que mejor le sirva a tu negocio."
+          "a": "Solo tu cuenta Qpaypro. Puedes cobrar desde el celular, con el Punto de Venta o con links de pago, según lo que mejor le sirva a tu negocio."
         }
       ]
     },
@@ -319,9 +319,9 @@
           "desc": "Reportes de lo que cobras, por día y por servicio."
         }
       ],
-      "ctaText": "Ver Sistema POS",
+      "ctaText": "Ver Punto de Venta",
       "image": "/images/sectors/34d825ba261b.webp",
-      "ctaHref": "/sistema-pos"
+      "ctaHref": "/punto-de-venta"
     },
     "testimonial": {
       "image": "/images/sectors/826585492158.webp",
@@ -517,7 +517,7 @@
     "pos": {
       "eyebrow": "Todo conectado",
       "heading": "Vende también en tu tienda física",
-      "desc": "Suma el Sistema POS y vende en físico con el mismo catálogo e inventario de tu tienda en línea. Todo tu negocio, sincronizado.",
+      "desc": "Suma el Punto de Venta y vende en físico con el mismo catálogo e inventario de tu tienda en línea. Todo tu negocio, sincronizado.",
       "items": [
         {
           "icon": "credit-card",
@@ -535,9 +535,9 @@
           "desc": "Tus ventas online y físicas, en un solo lugar."
         }
       ],
-      "ctaText": "Ver Sistema POS",
+      "ctaText": "Ver Punto de Venta",
       "image": "/images/sectors/34d825ba261b.webp",
-      "ctaHref": "/sistema-pos"
+      "ctaHref": "/punto-de-venta"
     },
     "testimonial": {
       "image": "/images/sectors/f14b74902338.webp",
@@ -731,9 +731,9 @@
           "desc": "Reportes de lo que cobras, por día y servicio."
         }
       ],
-      "ctaText": "Ver Sistema POS",
+      "ctaText": "Ver Punto de Venta",
       "image": "/images/sectors/34d825ba261b.webp",
-      "ctaHref": "/sistema-pos"
+      "ctaHref": "/punto-de-venta"
     },
     "testimonial": {
       "image": "/images/sectors/56d68b9a2125.webp",
@@ -919,9 +919,9 @@
           "desc": "Seguridad certificada en cada transacción."
         }
       ],
-      "ctaText": "Ver Sistema POS",
+      "ctaText": "Ver Punto de Venta",
       "image": "/images/sectors/34d825ba261b.webp",
-      "ctaHref": "/sistema-pos"
+      "ctaHref": "/punto-de-venta"
     },
     "testimonial": {
       "image": "/images/sectors/9bea2d036ab0.webp",

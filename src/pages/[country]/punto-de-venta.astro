@@ -10,12 +10,12 @@ const country = Astro.params.country!;
 const c = getCountry(country);
 
 const PIECES = [
-  { src: '/images/sistema-pos/38c08d7b58b2.webp', desktop: { left: '13.667%', top: '58.074%', width: '2.625%' }, mobile: { left: '13.667%', top: '64.974%', width: '2.625%' }, delay: '0.35s' },
-  { src: '/images/sistema-pos/e6bddd1eb37e.webp', desktop: { left: '17.958%', top: '31.63%', width: '8.25%' }, mobile: { left: '17.958%', top: '46.477%', width: '8.25%' }, delay: '0.63s' },
-  { src: '/images/sistema-pos/8624cb394df6.webp', desktop: { left: '28.208%', top: '40.074%', width: '8.542%' }, mobile: { left: '28.208%', top: '52.383%', width: '8.542%' }, delay: '0.91s' },
-  { src: '/images/sistema-pos/bd4fff269ba6.webp', desktop: { left: '34.5%', top: '74.296%', width: '31.083%' }, mobile: { left: '34.5%', top: '76.321%', width: '31.083%' }, delay: '1.19s' },
-  { src: '/images/sistema-pos/b659d2c7fb02.webp', desktop: { left: '38.625%', top: '13.333%', width: '33.625%' }, mobile: { left: '38.625%', top: '33.679%', width: '33.625%' }, delay: '1.47s' },
-  { src: '/images/sistema-pos/dc10e3ff99ab.webp', desktop: { left: '73.125%', top: '37.556%', width: '14.583%' }, mobile: { left: '73.125%', top: '50.622%', width: '14.583%' }, delay: '1.75s' },
+  { src: '/images/punto-de-venta/38c08d7b58b2.webp', desktop: { left: '13.667%', top: '58.074%', width: '2.625%' }, mobile: { left: '13.667%', top: '64.974%', width: '2.625%' }, delay: '0.35s' },
+  { src: '/images/punto-de-venta/e6bddd1eb37e.webp', desktop: { left: '17.958%', top: '31.63%', width: '8.25%' }, mobile: { left: '17.958%', top: '46.477%', width: '8.25%' }, delay: '0.63s' },
+  { src: '/images/punto-de-venta/8624cb394df6.webp', desktop: { left: '28.208%', top: '40.074%', width: '8.542%' }, mobile: { left: '28.208%', top: '52.383%', width: '8.542%' }, delay: '0.91s' },
+  { src: '/images/punto-de-venta/bd4fff269ba6.webp', desktop: { left: '34.5%', top: '74.296%', width: '31.083%' }, mobile: { left: '34.5%', top: '76.321%', width: '31.083%' }, delay: '1.19s' },
+  { src: '/images/punto-de-venta/b659d2c7fb02.webp', desktop: { left: '38.625%', top: '13.333%', width: '33.625%' }, mobile: { left: '38.625%', top: '33.679%', width: '33.625%' }, delay: '1.47s' },
+  { src: '/images/punto-de-venta/dc10e3ff99ab.webp', desktop: { left: '73.125%', top: '37.556%', width: '14.583%' }, mobile: { left: '73.125%', top: '50.622%', width: '14.583%' }, delay: '1.75s' },
 ];
 
 // Sin marcas ni modelos: el equipo puede variar según disponibilidad y lo que
@@ -171,8 +171,8 @@ const TESTIMONIOS = [
 ];
 
 const FAQ = [
-  { q: '¿Cómo funciona el POS omnicanal de Qpaypro con las tiendas en línea?', a: 'El Sistema POS de Qpaypro sincroniza en tiempo real el inventario, los pagos físicos y la impresión de recibos con las ventas de tu tienda en línea (Shopify, VTEX, WooCommerce), unificando todo en una sola plataforma. Así vendes en el mostrador y en internet con el mismo catálogo y el mismo stock.' },
-  { q: '¿Qué incluye el Sistema POS de Qpaypro?', a: 'Incluye terminal POS con pantalla táctil, escáner inalámbrico, impresora de recibos y cajón de efectivo. Todo llega listo para vender y cobrar con tarjeta desde el primer día.' },
+  { q: '¿Cómo funciona el POS omnicanal de Qpaypro con las tiendas en línea?', a: 'El Punto de Venta de Qpaypro sincroniza en tiempo real el inventario, los pagos físicos y la impresión de recibos con las ventas de tu tienda en línea (Shopify, VTEX, WooCommerce), unificando todo en una sola plataforma. Así vendes en el mostrador y en internet con el mismo catálogo y el mismo stock.' },
+  { q: '¿Qué incluye el Punto de Venta de Qpaypro?', a: 'Incluye terminal POS con pantalla táctil, escáner inalámbrico, impresora de recibos y cajón de efectivo. Todo llega listo para vender y cobrar con tarjeta desde el primer día.' },
   { q: '¿El POS acepta pagos con pago sin contacto?', a: 'Sí. Acepta Visa y Mastercard, crédito y débito, con pagos pago sin contacto (NFC) y validación 3D Secure para mayor seguridad.' },
   { q: '¿Puedo controlar mi inventario desde el POS?', a: 'Sí. El POS controla el stock en tiempo real, envía alertas de bajo inventario y organiza tu catálogo por categorías, sincronizado con tus ventas en línea.' },
   {
@@ -184,7 +184,7 @@ const FAQ = [
     a: 'Sí en los dos casos. Puedes usar tu propio equipo siempre que cumpla las especificaciones técnicas mínimas, así que conviene consultarlo con tu asesor de ventas antes de comprar nada. Y también puedes cobrar con una terminal de tarjeta distinta a la de Qpaypro; las tarifas por cobros con POS externo están en la página de precios.',
   },
   {
-    q: '¿Cuánto cuesta el Sistema POS completo?',
+    q: '¿Cuánto cuesta el Punto de Venta completo?',
     // Los precios viven en una sola página: repetirlos aquí obliga a
     // mantenerlos en dos lugares y a que uno de los dos quede desactualizado.
     a: 'Consulta los planes y precios vigentes en la página de precios, o escríbenos para una cotización a la medida de tu negocio.',
@@ -204,7 +204,7 @@ const jsonLd: Record<string, unknown>[] = [
     nombre: `Sistema de punto de venta Qpaypro ${c.name}`,
     tipo: 'Sistema de punto de venta',
     descripcion: `Punto de venta para negocios en ${c.name}: cobra con tarjeta, controla inventario y sincroniza tu tienda física con la tienda en línea desde una sola plataforma.`,
-    url: `/${country}/sistema-pos`,
+    url: `/${country}/punto-de-venta`,
     country: country as CountryCode,
     incluye: CAPABILITIES.map((capacidad) => capacidad.title),
   }),
@@ -218,7 +218,7 @@ if (c.sistemaPosPrice) {
     name: `Kit de punto de venta Qpaypro ${c.name}`,
     description: HARDWARE_PIECES.map((pieza) => pieza.title).join(', ') + '.',
     brand: { '@id': ID_ORGANIZACION },
-    url: urlAbsoluta(`/${country}/sistema-pos`),
+    url: urlAbsoluta(`/${country}/punto-de-venta`),
     offers: {
       '@type': 'Offer',
       price: c.sistemaPosPrice,
@@ -232,7 +232,7 @@ if (c.sistemaPosPrice) {
 ---
 
 <MainLayout
-  title="Sistema POS: terminal, escáner, impresora y cajón | Qpaypro"
+  title="Punto de Venta: terminal, escáner, impresora y cajón | Qpaypro"
   description="Sistema de punto de venta completo: terminal táctil, escáner inalámbrico, impresora de recibos y cajón de efectivo. Sincronizado con tu tienda en línea."
   headerTheme="onDark"
 >
@@ -248,7 +248,7 @@ if (c.sistemaPosPrice) {
     </style>
 
     <div class="relative w-full hidden lg:block">
-      <img src="/images/sistema-pos/ab32f5093859.webp" alt="Sistema de punto de venta Qpaypro" class="block w-full h-auto" />
+      <img src="/images/punto-de-venta/ab32f5093859.webp" alt="Sistema de punto de venta Qpaypro" class="block w-full h-auto" />
       {PIECES.map((piece) => (
         <img src={piece.src} alt="" class="sys-piece" style={`left: ${piece.desktop.left}; top: ${piece.desktop.top}; width: ${piece.desktop.width}; animation-delay: ${piece.delay};`} />
       ))}
@@ -269,7 +269,7 @@ if (c.sistemaPosPrice) {
          y el receptor USB de los extremos. -->
     <div class="relative w-full lg:hidden min-h-[100svh] bg-[#a5968f]">
       <img
-        src="/images/sistema-pos/605062be289f.webp"
+        src="/images/punto-de-venta/605062be289f.webp"
         alt="Sistema de punto de venta Qpaypro"
         class="block w-full h-auto"
       />
@@ -288,6 +288,11 @@ if (c.sistemaPosPrice) {
 
   <section class="w-full bg-white py-24 lg:py-32">
     <div class="max-w-[1040px] mx-auto px-6 lg:px-8">
+      {/* Este es el H1 de la página, y hasta ahora no había ninguno: el titular
+          del hero vive dentro de la imagen animada, así que para un buscador la
+          página no declaraba de qué trata. Va aquí, en la primera sección con
+          texto, y nombra el producto tal como se busca. */}
+      <h1 class="text-center text-[#0047ba] text-sm font-semibold uppercase tracking-[0.22em] mb-5">Punto de venta</h1>
       <h2 class="text-center text-3xl md:text-4xl font-bold tracking-[-0.02em] leading-tight mb-14 lg:mb-16">
         <span class="text-[#0f206c]">Qué incluye. </span><span class="text-[#0047ba]">Cuatro piezas que trabajan como una sola.</span>
       </h2>
@@ -327,7 +332,7 @@ if (c.sistemaPosPrice) {
         <div class="order-1 lg:order-2">
           <img
             src="/images/sectors/34d825ba261b.webp"
-            alt="Sistema POS de Qpaypro completo sobre un mostrador: terminal táctil, escáner, impresora y cajón"
+            alt="Punto de Venta de Qpaypro completo sobre un mostrador: terminal táctil, escáner, impresora y cajón"
             width="1000"
             height="1081"
             loading="lazy"
@@ -422,7 +427,7 @@ if (c.sistemaPosPrice) {
         <div class="relative">
           <div class="absolute -inset-8 rounded-[40px] blur-3xl pointer-events-none" style="background: radial-gradient(circle, rgba(0, 151, 206, 0.28) 0%, transparent 70%);"></div>
           <img
-            src="/images/sistema-pos/b659d2c7fb02.webp"
+            src="/images/punto-de-venta/b659d2c7fb02.webp"
             alt="Pantalla del punto de venta de Qpaypro con el catálogo de productos y el ticket de la venta en curso"
             width="807"
             height="757"
@@ -566,7 +571,7 @@ if (c.sistemaPosPrice) {
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-14 lg:mb-16">
         <p class="text-[#0047ba] text-xs font-semibold uppercase tracking-[0.22em] mb-5">Preguntas frecuentes</p>
-        <h2 class="text-[#1a1d29] text-3xl md:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] leading-[1.04]">Preguntas frecuentes del Sistema POS</h2>
+        <h2 class="text-[#1a1d29] text-3xl md:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] leading-[1.04]">Preguntas frecuentes del Punto de Venta</h2>
       </div>
       <div class="divide-y divide-black/[0.08] border-t border-black/[0.08]">
         {FAQ.map((item) => (
@@ -584,7 +589,7 @@ if (c.sistemaPosPrice) {
     <div class="absolute -bottom-32 -right-16 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none" style="background: radial-gradient(circle, rgba(15, 32, 108, 0.45) 0%, transparent 70%);"></div>
     <div class="relative z-10 max-w-2xl mx-auto px-6 lg:px-8 text-center">
       <h2 class="text-white text-4xl md:text-5xl font-semibold tracking-[-0.03em] leading-[1.05] mb-6">¿Listo para empezar?</h2>
-      <p class="text-white/60 text-lg lg:text-xl leading-relaxed mb-11 font-light">Lleva el Sistema POS a tu negocio y empieza a cobrar, controlar tu inventario y vender desde un solo equipo.</p>
+      <p class="text-white/60 text-lg lg:text-xl leading-relaxed mb-11 font-light">Lleva el Punto de Venta a tu negocio y empieza a cobrar, controlar tu inventario y vender desde un solo equipo.</p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a href={VENTAS_HREF} class="group inline-flex items-center gap-2 px-8 py-4 bg-white text-[#050506] rounded-full font-semibold text-base hover:bg-white/90 transition-colors duration-300">
           <Icon name="message-circle" class="w-4 h-4" />

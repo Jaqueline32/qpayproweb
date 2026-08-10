@@ -25,7 +25,7 @@ const LOGO_MARQUEE = [
 
 const SOLUTIONS_CARDS = [
   { title: 'Soluciones de Cobros', href: '/pasarela-de-pagos', image: '3b1c939fd3af.webp', textClass: 'text-white', shadow: true },
-  { title: 'Punto de Venta', href: '/sistema-pos', image: '77a587fbf8a2.webp', textClass: 'text-[#001853]', shadow: false },
+  { title: 'Punto de Venta', href: '/punto-de-venta', image: '77a587fbf8a2.webp', textClass: 'text-[#001853]', shadow: false },
   { title: 'Tienda en Línea', href: '/tiendas-en-linea', image: 'bc92e09e11da.webp', textClass: 'text-white', shadow: true },
 ];
 
@@ -180,7 +180,7 @@ const TESTIMONIALS = [
           <p class="text-white/60 text-xs font-semibold uppercase tracking-[0.24em]" style="font-family: var(--font-brand);">Hardware</p>
         </div>
         <h2 class="text-white text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.05] mb-10" style="text-shadow: rgba(0, 0, 0, 0.45) 0px 2px 30px;">Equipo para tu punto de venta.</h2>
-        <a href={`/${country}/sistema-pos`} class="group inline-flex items-center gap-2 px-8 py-4 bg-white/[0.10] backdrop-blur-md text-white border border-white/30 rounded-full font-semibold text-base hover:bg-white/20 hover:border-white/50 transition-all duration-300">
+        <a href={`/${country}/punto-de-venta`} class="group inline-flex items-center gap-2 px-8 py-4 bg-white/[0.10] backdrop-blur-md text-white border border-white/30 rounded-full font-semibold text-base hover:bg-white/20 hover:border-white/50 transition-all duration-300">
           Más información
           <Icon name="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
@@ -329,7 +329,7 @@ const TESTIMONIALS = [
               </button>
               <div data-platform-panel class:list={['overflow-hidden transition-all duration-500 ease-out', i === 0 ? 'max-h-64 opacity-100 pb-7' : 'max-h-0 opacity-0']}>
                 <p class="text-[#5c606b] text-base leading-relaxed mb-4 max-w-md">{item.text}</p>
-                <a href={`/${country}/sistema-pos`} class="inline-flex items-center gap-1.5 text-[#0047ba] font-semibold text-sm hover:gap-2.5 transition-all">
+                <a href={`/${country}/punto-de-venta`} class="inline-flex items-center gap-1.5 text-[#0047ba] font-semibold text-sm hover:gap-2.5 transition-all">
                   Más información
                   <Icon name="arrow-right" class="w-4 h-4" />
                 </a>

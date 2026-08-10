@@ -43,7 +43,7 @@ export function urlAbsoluta(ruta: string): string {
  */
 const NOMBRE_DE_RUTA: Record<string, string> = {
   'pasarela-de-pagos': 'Pasarela de pagos',
-  'sistema-pos': 'Punto de venta',
+  'punto-de-venta': 'Punto de venta',
   'terminal-pos': 'Terminal de cobro POS',
   'tiendas-en-linea': 'Tiendas en línea',
   integraciones: 'Integraciones',

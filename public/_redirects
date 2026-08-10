@@ -1,3 +1,11 @@
+# La página del punto de venta se llamaba /sistema-pos. Se renombró para que la
+# URL diga lo que el negocio busca. Va arriba porque en Pages gana la primera
+# coincidencia, y con y sin barra final porque _redirects compara exacto.
+/gt/sistema-pos /gt/punto-de-venta 301
+/gt/sistema-pos/ /gt/punto-de-venta 301
+/sv/sistema-pos /sv/punto-de-venta 301
+/sv/sistema-pos/ /sv/punto-de-venta 301
+
 /sitemap_index.xml /sitemap-index.xml 301
 /sitemap.xml /sitemap-index.xml 301
 /post-sitemap.xml /sitemap-0.xml 301
@@ -17,7 +25,7 @@
 /pasarela-de-pagos.html /gt/pasarela-de-pagos 301
 /tiendas-en-linea.html /gt/tiendas-en-linea 301
 /precios.html /gt/precios 301
-/sistema-pos.html /gt/sistema-pos 301
+/sistema-pos.html /gt/punto-de-venta 301
 /pos-cute.html /gt/terminal-pos 301
 /blog.html /gt/blog 301
 /articulo.html /gt/blog 301

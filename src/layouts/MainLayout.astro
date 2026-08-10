@@ -30,7 +30,7 @@ const pathname = Astro.url.pathname;
 // aplicando. `Astro.site` viene de `site` en astro.config.mjs.
 const base = Astro.site?.origin ?? 'https://www.qpaypro.com';
 const absoluta = (ruta: string) => new URL(ruta, base).href;
-// En el build `pathname` llega como /gt/sistema-pos.html porque la salida son
+// En el build `pathname` llega como /gt/punto-de-venta.html porque la salida son
 // archivos sueltos, pero Pages sirve la ruta sin extensión. El canonical debe
 // apuntar a la URL que ve el visitante, no al archivo.
 const canonical = absoluta(normalizePath(pathname));
