@@ -131,14 +131,37 @@ const SV = hasInstallments
             </div>
           )}
           {hasInstallments && (
-            <div class="relative">
-              <select data-calc-installments class="w-full appearance-none rounded-full bg-white border border-black/10 px-5 py-3.5 text-[#3a3d47] text-sm font-medium outline-none focus:border-[#0047ba] transition-colors cursor-pointer">
-                {INSTALLMENTS.map((item, i) => (
-                  <option value={i}>{item.label}</option>
-                ))}
-              </select>
-              <Icon name="chevron-down" class="w-4 h-4 text-[#8a8f9a] absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            </div>
+            <>
+              <div class="relative">
+                <select data-calc-installments aria-label="Forma de pago" class="w-full appearance-none rounded-full bg-white border border-black/10 px-5 py-3.5 text-[#3a3d47] text-sm font-medium outline-none focus:border-[#0047ba] transition-colors cursor-pointer">
+                  {INSTALLMENTS.map((item, i) => (
+                    <option value={i}>{item.label}</option>
+                  ))}
+                </select>
+                <Icon name="chevron-down" class="w-4 h-4 text-[#8a8f9a] absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
+              {/* La comisión no es la misma para todos: la banda MCC del giro la
+                  mueve, y la propuesta formal de cada comercio trae la suya. El
+                  campo arranca en la tarifa de la forma de pago elegida y se
+                  puede sobrescribir; al cambiar de forma de pago vuelve a
+                  proponer la que corresponde. */}
+              <div class="mt-4">
+                <label for="calc-tasa" class="block text-[#5c606b] text-xs font-semibold mb-2">Tu comisión por transacción</label>
+                <div class="flex items-center gap-2 rounded-full bg-white border border-black/10 px-5 py-3 focus-within:border-[#0047ba] transition-colors">
+                  <input
+                    id="calc-tasa"
+                    type="text"
+                    inputmode="decimal"
+                    value="4,50"
+                    data-calc-rate-input
+                    aria-describedby="calc-tasa-ayuda"
+                    class="flex-1 min-w-0 bg-transparent outline-none text-[#0f206c] text-lg font-semibold tracking-tight"
+                  />
+                  <span class="text-[#0047ba] font-bold" aria-hidden="true">%</span>
+                </div>
+                <p id="calc-tasa-ayuda" class="text-[#9094a0] text-[11px] mt-2 leading-snug">Cámbiala por la tuya si ya tienes una propuesta: depende del giro de tu negocio.</p>
+              </div>
+            </>
           )}
         </div>
         <div class="p-7 lg:p-8">
@@ -214,10 +237,20 @@ const SV = hasInstallments
   const retentionEl = root.querySelector('[data-calc-retention]');
   const retentionLabelEl = root.querySelector('[data-calc-retention-label]');
   const rateEl = document.querySelector('[data-calc-rate]');
+  const rateInput = root.querySelector('[data-calc-rate-input]');
   const exemptNoteEl = document.querySelector('[data-calc-exempt-note]');
 
   let regime = hasInstallments ? 'pequeno' : 'contribuyente';
   let currency = 'GTQ';
+
+  // La tasa que escribió el comercio, o null si todavía manda la de la forma de
+  // pago elegida. Se guarda como fracción (0.045), igual que en la data.
+  let tasaEscrita = null;
+
+  const tasaDeLaCuota = () => GT.rates[Number(installmentsSelect.value)].rate;
+  const tasaVigente = () => (tasaEscrita === null ? tasaDeLaCuota() : tasaEscrita);
+  // Coma decimal, que es como se escribe un porcentaje en Guatemala.
+  const comoPorcentaje = (fraccion) => (fraccion * 100).toFixed(2).replace('.', ',');
 
   const formatUSD = (n) => '$ ' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -232,7 +265,7 @@ const SV = hasInstallments
     const money = (n) => config.symbol + ' ' + n.toLocaleString(config.locale, decimales);
 
     const amount = parseFloat(amountInput.value) || 0;
-    const rate = GT.rates[Number(installmentsSelect.value)].rate;
+    const rate = tasaVigente();
 
     let retention = 0;
     let retentionLabel = 'Retención de IVA';
@@ -252,7 +285,7 @@ const SV = hasInstallments
     commissionEl.textContent = money(commission);
     retentionEl.textContent = money(retention);
     retentionLabelEl.textContent = retentionLabel;
-    rateEl.textContent = (rate * 100).toFixed(2).replace('.', ',') + '%';
+    rateEl.textContent = comoPorcentaje(rate) + '%';
     symbolEl.textContent = config.symbol;
     // Sin espacio, como se escribe un precio: "Q2.95", "$0.36".
     adminEl.textContent = config.symbol + config.fixedCost.toLocaleString(config.locale, decimales);
@@ -288,7 +321,28 @@ const SV = hasInstallments
     amountInput.value = amountInput.value.replace(',', '.').replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
     render();
   });
-  installmentsSelect?.addEventListener('change', render);
+  // Cambiar de forma de pago vuelve a proponer la tarifa que le corresponde: las
+  // cuotas se cobran a una escala distinta y arrastrar la tasa escrita para
+  // contado daría un número que no existe.
+  installmentsSelect?.addEventListener('change', () => {
+    tasaEscrita = null;
+    if (rateInput) rateInput.value = comoPorcentaje(tasaDeLaCuota());
+    render();
+  });
+
+  rateInput?.addEventListener('input', () => {
+    // Se acepta coma o punto y se deja una sola separación decimal.
+    rateInput.value = rateInput.value.replace('.', ',').replace(/[^0-9,]/g, '').replace(/(,.*),/g, '$1');
+    const escrito = parseFloat(rateInput.value.replace(',', '.'));
+    tasaEscrita = Number.isFinite(escrito) ? escrito / 100 : 0;
+    render();
+  });
+
+  // Al salir del campo se repinta con formato, para que un "3," a medio escribir
+  // no quede así en pantalla.
+  rateInput?.addEventListener('blur', () => {
+    rateInput.value = comoPorcentaje(tasaVigente());
+  });
 
   regimeButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
