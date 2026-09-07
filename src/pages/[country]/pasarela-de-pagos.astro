@@ -14,7 +14,7 @@ const c = getCountry(country);
 // en El Salvador, y esta página es la misma para los dos. Cada forma de cobro y
 // cada pregunta se declaran una sola vez y se filtran por la bandera del país:
 // anunciar una función que allá no se puede contratar es peor que no anunciarla.
-const { installments: cuotas, subscriptions: suscripciones } = c.features;
+const { installments: cuotas, subscriptions: suscripciones, quotations: cotizaciones } = c.features;
 
 // La numeración de las tarjetas se calcula al final, no se escribe a mano: al
 // quitar las suscripciones en El Salvador, las que siguen tienen que correrse.
@@ -55,6 +55,23 @@ const PAYMENT_METHODS = [
     text: 'Cada transacción protegida con certificación de nivel bancario.',
     points: ['Certificación PCI-DSS', 'Protocolo 3D Secure', 'Prevención de fraude Qpayradar + Qpayverify'],
   },
+  // Para negocios que no venden al instante: la propuesta se arma, se envía y se
+  // cobra desde el mismo enlace, sin que el cliente tenga que ir a otro lado.
+  // Todavía no está habilitada en El Salvador.
+  ...(cotizaciones
+    ? [
+        {
+          icon: 'file-check',
+          title: 'Cotizaciones',
+          text: 'Arma la propuesta en minutos y envíala por correo con su PDF. Tu cliente la revisa, la acepta y la paga desde el mismo enlace.',
+          points: [
+            'PDF y enlace listos para enviar',
+            'Sabes cuándo la abrió y cuándo la aceptó',
+            cuotas ? 'Cobra de contado, con anticipo o en cuotas' : 'Cobra de contado o con anticipo',
+          ],
+        },
+      ]
+    : []),
 ].map((metodo, i) => ({ ...metodo, num: String(i + 1).padStart(2, '0') }));
 
 const FAQ = [

@@ -621,6 +621,7 @@
   "features": {
     "installments": true,
     "subscriptions": true,
-    "tokenization": true
+    "tokenization": true,
+    "quotations": true
   }
 }

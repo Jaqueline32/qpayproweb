@@ -565,6 +565,7 @@
   "features": {
     "installments": false,
     "subscriptions": false,
-    "tokenization": false
+    "tokenization": false,
+    "quotations": false
   }
 }
