@@ -170,7 +170,24 @@ const SV = hasInstallments
           <div class="border-t border-black/[0.08] pt-5 mb-5">
             <div class="flex items-center gap-1.5 mb-1">
               <span class="text-[#0f206c] text-sm font-semibold" data-calc-commission-label>{hasInstallments ? 'Comisión de pago' : 'Comisión Qpaypro (3.5%)'}</span>
-              <Icon name="info" class="w-3.5 h-3.5 text-[#b6bac2]" />
+              {hasInstallments ? (
+                /* La cifra suma dos cosas y no se ve cuál es cuál. El icono deja
+                   de ser decorativo: se abre al pasar el mouse y también al
+                   enfocarlo, que es lo que ocurre al tocarlo en un celular. */
+                <span class="relative inline-flex group">
+                  <button type="button" aria-label="Qué incluye la comisión de pago" class="inline-flex rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#0047ba] focus-visible:ring-offset-1">
+                    <Icon name="info" class="w-3.5 h-3.5 text-[#b6bac2] group-hover:text-[#0047ba] transition-colors" />
+                  </button>
+                  <span
+                    role="tooltip"
+                    class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[min(15rem,72vw)] rounded-xl bg-[#0f206c] p-3 text-white text-[11.5px] font-normal leading-snug text-center opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-[opacity,visibility] duration-200 z-20 shadow-[0_12px_30px_-10px_rgba(15,32,108,0.6)]"
+                  >
+                    La comisión de tu tarifa más el costo administrativo de <span data-calc-admin>Q2.95</span> por transacción.
+                  </span>
+                </span>
+              ) : (
+                <Icon name="info" class="w-3.5 h-3.5 text-[#b6bac2]" />
+              )}
             </div>
             <p class="text-[#1a1d29] text-xl font-semibold" data-calc-commission>{hasInstallments ? 'Q 7.45' : '$ 3.10'}</p>
           </div>
@@ -229,7 +246,9 @@ const SV = hasInstallments
   const regimeButtons = Array.from(root.querySelectorAll('[data-calc-regime]'));
   const currencyButtons = Array.from(root.querySelectorAll('[data-calc-currency]'));
   const symbolEl = root.querySelector('[data-calc-symbol]');
-  const adminEl = document.querySelector('[data-calc-admin]');
+  // El costo administrativo se nombra en la nota al pie y en el tooltip de la
+  // comisión: los dos tienen que seguir a la moneda elegida.
+  const adminEls = Array.from(document.querySelectorAll('[data-calc-admin]'));
   const netEl = root.querySelector('[data-calc-net]');
   const commissionEl = root.querySelector('[data-calc-commission]');
   const commissionLabelEl = root.querySelector('[data-calc-commission-label]');
@@ -288,7 +307,8 @@ const SV = hasInstallments
     rateEl.textContent = comoPorcentaje(rate) + '%';
     symbolEl.textContent = config.symbol;
     // Sin espacio, como se escribe un precio: "Q2.95", "$0.36".
-    adminEl.textContent = config.symbol + config.fixedCost.toLocaleString(config.locale, decimales);
+    const admin = config.symbol + config.fixedCost.toLocaleString(config.locale, decimales);
+    adminEls.forEach((el) => { el.textContent = admin; });
   }
 
   // El Salvador: si el comercio es contribuyente de IVA, la comisión se calcula
