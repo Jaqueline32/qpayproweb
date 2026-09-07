@@ -622,6 +622,7 @@
     "installments": true,
     "subscriptions": true,
     "tokenization": true,
-    "quotations": true
+    "quotations": true,
+    "electronicInvoicing": true
   }
 }

@@ -566,6 +566,7 @@
     "installments": false,
     "subscriptions": false,
     "tokenization": false,
-    "quotations": false
+    "quotations": false,
+    "electronicInvoicing": false
   }
 }

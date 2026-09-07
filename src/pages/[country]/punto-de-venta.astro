@@ -9,6 +9,14 @@ export const getStaticPaths = countryPaths;
 const country = Astro.params.country!;
 const c = getCountry(country);
 
+// La facturación electrónica es un requisito legal guatemalteco y el primer
+// filtro de compra de quien busca un punto de venta allá: los competidores que
+// aparecen en esa búsqueda la llevan hasta en el título. Qpaypro la ofrece con
+// QPayFEL —DTEs incluidos por plan y envío por WhatsApp, todo publicado en la
+// tabla de precios— pero esta página no la nombraba ni una vez. En El Salvador
+// no aplica: la FEL es de la SAT.
+const facturacionElectronica = c.features.electronicInvoicing;
+
 const PIECES = [
   { src: '/images/sistema-pos/38c08d7b58b2.webp', desktop: { left: '13.667%', top: '58.074%', width: '2.625%' }, mobile: { left: '13.667%', top: '64.974%', width: '2.625%' }, delay: '0.35s' },
   { src: '/images/sistema-pos/e6bddd1eb37e.webp', desktop: { left: '17.958%', top: '31.63%', width: '8.25%' }, mobile: { left: '17.958%', top: '46.477%', width: '8.25%' }, delay: '0.63s' },
@@ -171,6 +179,21 @@ const TESTIMONIOS = [
 ];
 
 const FAQ = [
+  // Las preguntas van al FAQPage del JSON-LD, así que son la forma más directa
+  // de que un buscador —o un asistente— lea la respuesta con las palabras con
+  // las que de verdad se pregunta.
+  ...(facturacionElectronica
+    ? [
+        {
+          q: `¿El punto de venta de Qpaypro factura con FEL en ${c.name}?`,
+          a: `Sí. Con QPayFEL emites la factura electrónica desde la misma cuenta con la que cobras, sin contratar un segundo sistema. Cada plan incluye una cantidad de DTEs y puedes enviarle la factura a tu cliente por WhatsApp; el detalle por plan está en la página de precios.`,
+        },
+        {
+          q: '¿Cuántos DTEs incluye el sistema y cuánto cuesta uno adicional?',
+          a: 'Depende del plan: los planes de pago incluyen DTEs y facturas por WhatsApp, y el DTE adicional tiene un costo por unidad que baja conforme sube el plan. La tabla completa está en la página de precios.',
+        },
+      ]
+    : []),
   { q: '¿Cómo funciona el POS omnicanal de Qpaypro con las tiendas en línea?', a: 'El Punto de Venta de Qpaypro sincroniza en tiempo real el inventario, los pagos físicos y la impresión de recibos con las ventas de tu tienda en línea (Shopify, VTEX, WooCommerce), unificando todo en una sola plataforma. Así vendes en el mostrador y en internet con el mismo catálogo y el mismo stock.' },
   { q: '¿Qué incluye el Punto de Venta de Qpaypro?', a: 'Incluye terminal POS con pantalla táctil, escáner inalámbrico, impresora de recibos y cajón de efectivo. Todo llega listo para vender y cobrar con tarjeta desde el primer día.' },
   { q: '¿El POS acepta pagos con pago sin contacto?', a: 'Sí. Acepta Visa y Mastercard, crédito y débito, con pagos pago sin contacto (NFC) y validación 3D Secure para mayor seguridad.' },
@@ -193,6 +216,18 @@ const FAQ = [
 
 const VENTAS_HREF = `/${country}/contacto#ventas`;
 const PRECIOS_HREF = `/${country}/precios`;
+
+// El título y el H1 nombran el producto como se busca y dicen el país. Sin el
+// país, la página compite contra todos los puntos de venta del idioma.
+// Cortos a propósito: Google recorta el título alrededor de los 60 caracteres,
+// y lo que no puede perderse es la frase que se busca, el país y la marca.
+const TITULO = facturacionElectronica
+  ? `Sistema de punto de venta con FEL | Qpaypro ${c.name}`
+  : `Sistema de punto de venta | Qpaypro ${c.name}`;
+
+const DESCRIPCION = facturacionElectronica
+  ? `Sistema POS para negocios en ${c.name}: factura con FEL, cobra con tarjeta, controla inventario y sincroniza tu tienda física con la de en línea. Terminal, escáner, impresora y cajón.`
+  : `Sistema POS para negocios en ${c.name}: cobra con tarjeta, controla inventario y sincroniza tu tienda física con la de en línea. Terminal, escáner, impresora y cajón.`;
 
 // Las nueve capacidades entran al catálogo del servicio: son las prestaciones
 // que un asistente compara cuando le preguntan "¿qué punto de venta uso?", y
@@ -232,8 +267,8 @@ if (c.sistemaPosPrice) {
 ---
 
 <MainLayout
-  title="Punto de Venta: terminal, escáner, impresora y cajón | Qpaypro"
-  description="Sistema de punto de venta completo: terminal táctil, escáner inalámbrico, impresora de recibos y cajón de efectivo. Sincronizado con tu tienda en línea."
+  title={TITULO}
+  description={DESCRIPCION}
   headerTheme="onDark"
 >
   <section class="relative w-full bg-[#050506] overflow-hidden">
@@ -292,7 +327,7 @@ if (c.sistemaPosPrice) {
           del hero vive dentro de la imagen animada, así que para un buscador la
           página no declaraba de qué trata. Va aquí, en la primera sección con
           texto, y nombra el producto tal como se busca. */}
-      <h1 class="text-center text-[#0047ba] text-sm font-semibold uppercase tracking-[0.22em] mb-5">Punto de venta</h1>
+      <h1 class="text-center text-[#0047ba] text-sm font-semibold uppercase tracking-[0.22em] mb-5">Sistema de punto de venta en {c.name}</h1>
       <h2 class="text-center text-3xl md:text-4xl font-bold tracking-[-0.02em] leading-tight mb-14 lg:mb-16">
         <span class="text-[#0f206c]">Qué incluye. </span><span class="text-[#0047ba]">Cuatro piezas que trabajan como una sola.</span>
       </h2>
@@ -386,8 +421,11 @@ if (c.sistemaPosPrice) {
         <h2 class="text-[#1a1d29] text-3xl md:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] leading-[1.05] mb-6">
           El equipo cobra. El sistema es el que hace crecer el negocio.
         </h2>
+        {/* "Sistema POS" se dice tanto como "punto de venta" y se busca igual;
+            al renombrar la página el término había desaparecido del texto. */}
         <p class="text-[#6b7280] text-lg lg:text-xl leading-relaxed font-light">
-          Todo lo que pasa en tu mostrador, tu tienda en línea y tus redes vive en la misma plataforma, con un solo inventario detrás.
+          El sistema POS de Qpaypro reúne en una sola plataforma todo lo que pasa en tu mostrador, tu tienda en línea
+          y tus redes, con un solo inventario detrás.
         </p>
       </div>
 
@@ -404,6 +442,62 @@ if (c.sistemaPosPrice) {
       </div>
     </div>
   </section>
+
+  {/* En Guatemala facturar electrónicamente no es una función más: es obligatorio,
+      y es lo primero que se pregunta quien compara puntos de venta. Se cuenta con
+      lo que ya está publicado en la tabla de precios —DTEs incluidos por plan,
+      costo del adicional y facturas por WhatsApp— y se enlaza ahí para el detalle,
+      en vez de repetir cifras que se desincronizarían. */}
+  {facturacionElectronica && (
+    <section class="w-full bg-white py-24 lg:py-32">
+      <div class="max-w-[1100px] mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
+            <p class="text-[#0047ba] text-xs font-semibold uppercase tracking-[0.22em] mb-5">Facturación electrónica</p>
+            <h2 class="text-[#1a1d29] text-3xl md:text-4xl font-semibold tracking-[-0.03em] leading-[1.08] mb-6">
+              Cobra y factura con FEL en la misma venta
+            </h2>
+            <p class="text-[#6b7280] text-lg leading-relaxed font-light mb-6">
+              En {c.name} la factura electrónica es obligatoria, y con QPayFEL no necesitas un segundo sistema
+              para emitirla. Tu plan de Qpaypro ya incluye DTEs, y puedes enviarle la factura a tu cliente por
+              WhatsApp en cuanto termina de pagar.
+            </p>
+            <ul class="space-y-3 mb-8">
+              {[
+                'DTEs incluidos en tu plan, sin contratar aparte',
+                'Envío de la factura por WhatsApp',
+                'El mismo catálogo del punto de venta, sin volver a capturar la venta',
+              ].map((punto) => (
+                <li class="flex items-start gap-3">
+                  <span class="inline-flex w-[18px] h-[18px] rounded-full bg-[#0047ba]/10 items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon name="check" class="w-2.5 h-2.5 text-[#0047ba]" strokeWidth={3.5} />
+                  </span>
+                  <span class="text-[#3a3d47] text-[15px] leading-relaxed">{punto}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={PRECIOS_HREF} class="group inline-flex items-center gap-2 text-[#0047ba] font-semibold text-[15px] hover:gap-3 transition-all">
+              Cuántos DTEs incluye cada plan
+              <Icon name="arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+          <div class="rounded-[26px] bg-[#f5f6f8] border border-black/[0.06] p-8 lg:p-10">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0f206c] to-[#0097ce] flex items-center justify-center mb-6">
+              <Icon name="file-check" class="w-6 h-6 text-white" strokeWidth={1.7} />
+            </div>
+            <p class="text-[#0f206c] text-xl font-semibold tracking-tight mb-3">QPayFEL</p>
+            <p class="text-[#6b7280] text-[15px] font-light leading-relaxed mb-6">
+              El sistema de facturación electrónica de Qpaypro, pensado para el negocio guatemalteco que ya cobra
+              con nosotros: una sola cuenta para vender, cobrar y facturar.
+            </p>
+            <a href={`/${country}/blog/qpayfel-facturacion-electronica-guatemala`} class="text-[#0047ba] font-medium text-sm hover:underline">
+              Cómo nació QPayFEL
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="relative w-full overflow-hidden bg-[#050506] py-24 lg:py-32">
     <div class="absolute -top-40 right-0 w-[620px] h-[620px] rounded-full blur-3xl pointer-events-none" style="background: radial-gradient(circle, rgba(0, 151, 206, 0.3) 0%, transparent 70%);"></div>
