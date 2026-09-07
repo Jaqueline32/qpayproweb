@@ -178,11 +178,13 @@ const SV = hasInstallments
                   <button type="button" aria-label="Qué incluye la comisión de pago" class="inline-flex rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#0047ba] focus-visible:ring-offset-1">
                     <Icon name="info" class="w-3.5 h-3.5 text-[#b6bac2] group-hover:text-[#0047ba] transition-colors" />
                   </button>
+                  {/* La fórmula con los números de arriba se entiende de un
+                      vistazo; explicarla en prosa hay que leerlo dos veces. */}
                   <span
                     role="tooltip"
-                    class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[min(15rem,72vw)] rounded-xl bg-[#0f206c] p-3 text-white text-[11.5px] font-normal leading-snug text-center opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-[opacity,visibility] duration-200 z-20 shadow-[0_12px_30px_-10px_rgba(15,32,108,0.6)]"
+                    class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[70vw] rounded-xl bg-[#0f206c] px-3.5 py-2.5 text-white text-[12px] font-medium leading-snug text-center opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-[opacity,visibility] duration-200 z-20 shadow-[0_12px_30px_-10px_rgba(15,32,108,0.6)]"
                   >
-                    La comisión de tu tarifa más el costo administrativo de <span data-calc-admin>Q2.95</span> por transacción.
+                    <span data-calc-rate>4,50%</span> + <span data-calc-admin>Q2.95</span> fijos
                   </span>
                 </span>
               ) : (
@@ -255,7 +257,8 @@ const SV = hasInstallments
   const ivaEl = root.querySelector('[data-calc-iva]');
   const retentionEl = root.querySelector('[data-calc-retention]');
   const retentionLabelEl = root.querySelector('[data-calc-retention-label]');
-  const rateEl = document.querySelector('[data-calc-rate]');
+  // La tasa se nombra en la nota al pie y en el tooltip de la comisión.
+  const rateEls = Array.from(document.querySelectorAll('[data-calc-rate]'));
   const rateInput = root.querySelector('[data-calc-rate-input]');
   const exemptNoteEl = document.querySelector('[data-calc-exempt-note]');
 
@@ -304,7 +307,8 @@ const SV = hasInstallments
     commissionEl.textContent = money(commission);
     retentionEl.textContent = money(retention);
     retentionLabelEl.textContent = retentionLabel;
-    rateEl.textContent = comoPorcentaje(rate) + '%';
+    const porcentaje = comoPorcentaje(rate) + '%';
+    rateEls.forEach((el) => { el.textContent = porcentaje; });
     symbolEl.textContent = config.symbol;
     // Sin espacio, como se escribe un precio: "Q2.95", "$0.36".
     const admin = config.symbol + config.fixedCost.toLocaleString(config.locale, decimales);
