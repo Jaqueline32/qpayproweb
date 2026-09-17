@@ -12,10 +12,16 @@
 // GTM respeta para todas sus etiquetas a la vez. Los valores por defecto se
 // declaran ANTES de cargar el contenedor, y se actualizan si el visitante ya
 // había elegido. Ver ConsentBanner.astro.
+//
+// Microsoft Clarity (grabaciones y mapas de calor) se carga aparte porque no
+// está en el contenedor de GTM. Recibe el mismo consentimiento vía su API
+// consentv2: sin consentimiento sigue grabando pero sin cookies (_clck/_clsk),
+// con un ID distinto por página; con consentimiento persiste la sesión.
 const GTM_ID = 'GTM-T53BQFC';
+const CLARITY_ID = 'yjwwrxo2vj';
 ---
 
-<script is:inline define:vars={{ GTM_ID }}>
+<script is:inline define:vars={{ GTM_ID, CLARITY_ID }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     window.dataLayer.push(arguments);
@@ -23,6 +29,17 @@ const GTM_ID = 'GTM-T53BQFC';
   window.gtag = window.gtag || gtag;
 
   var STORAGE_KEY = 'qp-consent';
+
+  // Traduce la elección del visitante al formato de Clarity. La llamada se
+  // encola si el tag aún no cargó, así que es segura desde cualquier punto.
+  // ConsentBanner.astro la reutiliza cuando el visitante cambia de opinión.
+  window.qpClarityConsent = function (analytics, marketing) {
+    if (typeof window.clarity !== 'function') return;
+    window.clarity('consentv2', {
+      ad_Storage: marketing ? 'granted' : 'denied',
+      analytics_Storage: analytics ? 'granted' : 'denied',
+    });
+  };
 
   // Por defecto todo denegado salvo lo estrictamente necesario, para que
   // ninguna etiqueta de marketing dispare antes de que el visitante elija.
@@ -37,8 +54,9 @@ const GTM_ID = 'GTM-T53BQFC';
   });
 
   // Si ya eligió en una visita anterior, se aplica de inmediato.
+  var saved = null;
   try {
-    var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
     if (saved && saved.choices) {
       var analytics = saved.choices.analytics ? 'granted' : 'denied';
       var marketing = saved.choices.marketing ? 'granted' : 'denied';
@@ -65,4 +83,23 @@ const GTM_ID = 'GTM-T53BQFC';
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
   })(window, document, 'script', 'dataLayer', GTM_ID);
+
+  // Tag de Microsoft Clarity.
+  (function (c, l, a, r, i, t, y) {
+    c[a] =
+      c[a] ||
+      function () {
+        (c[a].q = c[a].q || []).push(arguments);
+      };
+    t = l.createElement(r);
+    t.async = 1;
+    t.src = 'https://www.clarity.ms/tag/' + i;
+    y = l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t, y);
+  })(window, document, 'clarity', 'script', CLARITY_ID);
+
+  // Mismo criterio que Consent Mode: todo denegado hasta que el visitante
+  // elija, y si ya eligió antes se aplica de inmediato.
+  var choices = (saved && saved.choices) || {};
+  window.qpClarityConsent(!!choices.analytics, !!choices.marketing);
 </script>

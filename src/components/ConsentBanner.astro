@@ -105,6 +105,9 @@ const { country } = Astro.props;
           analytics_storage: analytics,
         });
       }
+      if (typeof window.qpClarityConsent === 'function') {
+        window.qpClarityConsent(!!choices.analytics, !!choices.marketing);
+      }
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'consent_updated', consent_analytics: !!choices.analytics, consent_marketing: !!choices.marketing });
     }
